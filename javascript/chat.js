@@ -3,6 +3,11 @@ inputField = form.querySelector(".input-field"),
 sendBtn = form.querySelector("button"),
 chatBox = document.querySelector('.chat-box');
 
+/*Bu aşağıdaki form.onsubmit kodu, bir HTML formunun submit (gönderme) işlemi gerçekleştiğinde sayfanın yenilenmesini
+engellemek için kullanılıyor. form değişkeni, .typing-area sınıfı olan HTML formunu seçiyor.
+form.onsubmit olayı, form gönderildiğinde çalıştırılacak fonksiyonu belirtiyor.
+Bu fonksiyonda e.preventDefault() kullanılarak, formun varsayılan işlemini durdurarak sayfanın yenilenmesi önlenebiliyor.
+*/
 form.onsubmit = (e) =>{
     e.preventDefault();
 }
@@ -51,19 +56,19 @@ function escapeHtml(unsafe) {
 
 // Get Yöntemini kullanacağız çünkü verileri göndermek için almamız gerekiyor
 setInterval( ()=>{
-    // Ajax'a başlıyoruz
+    // Ajax isteği başlatılıyor
     let xhr = new XMLHttpRequest(); // XML nesnesi oluşturma
     xhr.open("POST", "php/get-chat.php", true);
     xhr.onreadystatechange = ()=>{
         if(xhr.readyState === 4){
             if(xhr.status === 200){
                 let data = xhr.response;
-                data = escapeHtml(data);
-                data = document.createElement("div").innerText = data;
-                chatBox.innerHTML = data;
+                data = escapeHtml(data); // Veriyi HTML kodlarından temizleme
+                data = document.createElement("div").innerText = data; // Veriyi HTML elementi olarak oluşturma
+                chatBox.innerHTML = data; // Sohbet kutusunun içeriğini güncelleme
                 if(!chatBox.classList.contains("active"))
                 {
-                    scrollToBottom();
+                    scrollToBottom(); // Eğer sohbet kutusu aktif değilse, en altına kaydırma
                 }
             }
         }
