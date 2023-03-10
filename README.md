@@ -6,9 +6,9 @@
 
 https://user-images.githubusercontent.com/86704802/224430524-1da60bc8-0d7d-4b65-ac55-fd85fcf66b69.mp4
 
-♾ I have designed a simple, smooth, and secure sign-up page for every user to use seamlessly. When I say secure, what do I mean? Users are required to enter their first name, last name, email, and password at login. These form fields can be vulnerable to xcc attacks. The system prevents this.
+<p>♾ I have designed a simple, smooth, and secure sign-up page for every user to use seamlessly. When I say secure, what do I mean? Users are required to enter their first name, last name, email, and password at login. These form fields can be vulnerable to xcc attacks. The system prevents this.</p>
 
-♾ The sign-up page includes a unique hashing process for the user's password. Additionally, the system prevents users from uploading anything other than a photo with a .jpg, .png, or .jpeg file extension.
+<p>♾ The sign-up page includes a unique hashing process for the user's password. Additionally, the system prevents users from uploading anything other than a photo with a .jpg, .png, or .jpeg file extension.</p>
 
 ♾ After logging in, the user will be presented with an elegant and smooth chat page where they can converse safely with registered users. Security measures have been taken to prevent xcc and SQL injection vulnerabilities in the system.
 
