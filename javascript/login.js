@@ -2,10 +2,11 @@ const form = document.querySelector(".login form"),
 continueBtn = form.querySelector(".button input"),
 errorText = form.querySelector(".error-txt");
 
+// Submit olayını engellemek için kullanılan kod bloğu
 form.onsubmit = (e)=>{
-    e.preventDefault(); // formun gönderilmesinden önceki hali
+    e.preventDefault();
 }
-
+// Devam et butonuna tıklanıldığında çalışan kod bloğu
 continueBtn.onclick = ()=>{
     // Ajax'a başlıyoruz
     let xhr = new XMLHttpRequest(); // XML nesnesi oluşturma
@@ -17,9 +18,11 @@ continueBtn.onclick = ()=>{
                 console.log(data);
                 if(data == "success")
                 {
+                    // Başarılı giriş durumunda kullanıcının yönlendirileceği sayfa
                     location.href="users.php";
                 }
                 else{
+                    // Hatalı giriş durumunda ekrana gösterilecek hata mesajı
                     errorText.textContent= data;
                     errorText.style.display = "block";
                 }
