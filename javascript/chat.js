@@ -33,21 +33,20 @@ chatBox.onmouseleave = () =>{
 
 function escapeHtml(unsafe) {
     return String(unsafe)
-            .replace('<script>', "hata")
-           .replace('/script', "hata")
-           .replace('alert()', "hata")
-           .replace('script', "hata")
-           .replace('<script>', "hata")
-           .replace('</h2', "hata")
-           .replace('</h2', "hata")
-           .replace('</h3', "hata")
-           .replace('</h4', "hata")
-           .replace('</h5', "hata")
-           .replace('</h6', "hata")
-           .replace('document.', "hata")
-           .replace('();', "hata")
-           .replace('', "hata")
-           .replace('.querySelector', "");
+            .replace('<script>', "Kural dışı mesaj ")
+           .replace('/script', "Kural dışı mesaj ")
+           .replace('alert()', "Kural dışı mesaj ")
+           .replace('script', "Kural dışı mesaj ")
+           .replace('<script>', "Kural dışı mesaj ")
+           .replace('</h2', "Kural dışı mesaj ")
+           .replace('</h2', "Kural dışı mesaj ")
+           .replace('</h3', "Kural dışı mesaj ")
+           .replace('</h4', "Kural dışı mesaj ")
+           .replace('</h5', "Kural dışı mesaj ")
+           .replace('</h6', "Kural dışı mesaj ")
+           .replace('document.', "Kural dışı mesaj ")
+           .replace('();', "Kural dışı mesaj ")
+           .replace('.querySelector', "Kural dışı mesaj ");
 }
 
 // Get Yöntemini kullanacağız çünkü verileri göndermek için almamız gerekiyor
@@ -60,7 +59,6 @@ setInterval( ()=>{
             if(xhr.status === 200){
                 let data = xhr.response;
                 data = escapeHtml(data);
-                
                 data = document.createElement("div").innerText = data;
                 chatBox.innerHTML = data;
                 if(!chatBox.classList.contains("active"))
