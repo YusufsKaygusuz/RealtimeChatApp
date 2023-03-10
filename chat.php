@@ -13,11 +13,13 @@
 
             <?php
                 include_once "php/config.php";
+                // URL parametresindeki `user_id` değerini güvenli bir şekilde alıyorum
                 $user_id = mysqli_real_escape_string($conn, $_GET['user_id']);
-                //şimdi oturumu kullanarak mevcut oturum açmış kullanıcının tüm verilerini seçeceğim
+                // Veritabanından ilgili kullanıcının tüm bilgilerini seçiyorum
                     $sql = mysqli_query($conn, "SELECT * FROM users WHERE unique_id = {$user_id}");
                     if(mysqli_num_rows($sql) > 0)
                     {
+                        // Veritabanından alınan verileri $row değişkenine atıyorum
                         $row = mysqli_fetch_assoc($sql);
                     }
                 ?>
