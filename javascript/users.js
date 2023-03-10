@@ -8,32 +8,35 @@ searchBtn.onclick = ()=>{
     searchBtn.classList.toggle("active");
     searchBar.value = "";
 }
-
+// HTML'de oluşturduğumuz arama çubuğunun değerini değişiklikleri dinlemek için tanımlıyoruz
 searchBar.onkeyup = ()=>{
-    let searchTerm = searchBar.value;
+    let searchTerm = searchBar.value; // Arama çubuğundaki değeri alıyoruz
     if (searchTerm != ""){
-        searchBar.classList.add("active");
+        searchBar.classList.add("active"); // Eğer değer varsa arama çubuğuna "active" class'ını ekliyoruz
     }
     else{
-        searchBar.classList.remove("active");
+        searchBar.classList.remove("active"); // Değer yoksa "active" class'ını çıkarıyoruz
     }
-    // Ajax'a başlıyoruz
-    let xhr = new XMLHttpRequest(); // XML nesnesi oluşturma
-    xhr.open("POST", "php/search.php", true);
+    // Yeni bir XMLHttpRequest nesnesi oluşturuyoruz
+    let xhr = new XMLHttpRequest(); 
+    xhr.open("POST", "php/search.php", true); // PHP dosyasına istek göndermek için HTTP POST isteği yapıyoruz
     xhr.onreadystatechange  = ()=>{
-        if(xhr.readyState === 4){
-            if(xhr.status === 200){
-                let data = xhr.response;
-                data = validateData(data);
-                userList.innerHTML = data;
+        if(xhr.readyState === 4){ // İstek tamamlandı mı diye kontrol ediyoruz
+            if(xhr.status === 200){ // HTTP yanıt kodu 200 ise (yani işlem başarılı olduysa)
+                let data = xhr.response; // PHP dosyasından gelen verileri alıyoruz
+                userList.innerHTML = data; // Verileri kullanıcı listesi HTML elementine ekliyoruz
             }
         }
     }
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("searchTerm=" + searchTerm); // ajax ile php dosyasına kullanıcı arama terimi gönderme
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); // POST isteği ile gönderilen verilerin türünü belirtiyoruz
+    xhr.send("searchTerm=" + searchTerm); // Arama çubuğundaki değeri POST isteği ile gönderiyoruz
 }
 
-// Get Yöntemini kullanacağız çünkü verileri göndermek için almamız gerekiyor
+// Aşağıdaki kod, her 500 milisaniyede bir users.php dosyasına GET isteği göndererek,
+// kullanıcıların listesini alıp userList elementinin içeriğini güncelliyor.
+// Eğer arama kutusu aktif değilse (searchBar elementi active class'ını içermiyorsa),
+// kullanıcı listesini güncelliyor. Bu sayede, anlık olarak kullanıcıların
+// eklenip çıkarılması durumunda da kullanıcı listesi güncel tutuluyor.
 setInterval( ()=>{
     // Ajax'a başlıyoruz
     let xhr = new XMLHttpRequest(); // XML nesnesi oluşturma
@@ -50,11 +53,3 @@ setInterval( ()=>{
     }
     xhr.send();
 }, 500); // bu fonksiyon her 500ms'de çalışacak
-
-
-// Kullanıcı girdilerini kontrol eden bir fonksiyon
-function validateData(data){
-    // verileri filtreleyerek veya doğrulayarak güvenli hale getirin
-    // örneğin, özel karakterleri filtreleyebilirsiniz
-    return data.replace(/<\/?[^>]+(>|$)/g, '');
-}
