@@ -1,3 +1,9 @@
+/*
+Buradaki kod blokları kısaca, oturum açmış kullanıcının benzersiz kimliğine göre veritabanından
+kullanıcı verilerini seçiyor ve daha sonra bu verileri sayfa başlığı olarak kullanılan
+bir başlık etiketi içinde görüntülüyor.
+*/
+
 <?php
     session_start();
     if(!isset($_SESSION['unique_id'])){
