@@ -16,6 +16,9 @@ https://user-images.githubusercontent.com/86704802/224430524-1da60bc8-0d7d-4b65-
 
 ♾ Users can see in real-time which users are active and inactive.
 
+![image](https://user-images.githubusercontent.com/86704802/225591926-a31bc871-be16-429a-9489-54898dd7e861.png)
+
+
 
 <h3>Step By Step Roadmap</h3>
 <p>➡️ Step1 : The first step is to install XAMPP. XAMPP is a web server software. With XAMPP server, systems such as PHP, MariaDB, Perl, Apache, FileZilla, and MercuryMail can be installed on a computer to create a ready-made web server. phpMyAdmin is also installed as part of XAMPP server. We will be using the Apache server and MySQL services provided by XAMPP, and we will frequently use the phpMyAdmin panel. After installing XAMPP, an application interface will appear like this ⬇️⬇️⬇️.</p>
