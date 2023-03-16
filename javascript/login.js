@@ -1,29 +1,32 @@
 const form = document.querySelector(".login form"),
-continueBtn = form.querySelector(".button input"),
-errorText = form.querySelector(".error-txt");
+    continueBtn = form.querySelector(".button input"),
+    errorText = form.querySelector(".error-txt");
 
-// Submit olayını engellemek için kullanılan kod bloğu
-form.onsubmit = (e)=>{
-    e.preventDefault();
+form.onsubmit = (e) => {
+    e.preventDefault(); // formun gönderilmesinden önceki hali
 }
-// Devam et butonuna tıklanıldığında çalışan kod bloğu
-continueBtn.onclick = ()=>{
+
+continueBtn.onclick = () => {
     // Ajax'a başlıyoruz
     let xhr = new XMLHttpRequest(); // XML nesnesi oluşturma
     xhr.open("POST", "php/login.php", true);
-    xhr.onload = ()=>{
-        if(xhr.readyState === XMLHttpRequest.DONE){
-            if(xhr.status === 200){
+
+    // CSRF koruması
+    let csrfToken = document.querySelector('meta[name="csrf-token"]');
+    if (csrfToken) {
+        xhr.setRequestHeader("X-CSRF-Token", csrfToken.getAttribute('content'));
+    }
+
+    xhr.onload = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
                 let data = xhr.response;
                 console.log(data);
-                if(data == "success")
-                {
-                    // Başarılı giriş durumunda kullanıcının yönlendirileceği sayfa
-                    location.href="users.php";
+                if (data == "success") {
+                    location.href = "users.php";
                 }
-                else{
-                    // Hatalı giriş durumunda ekrana gösterilecek hata mesajı
-                    errorText.textContent= data;
+                else {
+                    errorText.textContent = data;
                     errorText.style.display = "block";
                 }
             }
@@ -31,5 +34,11 @@ continueBtn.onclick = ()=>{
     }
     // form verilerini ajax aracılığıyla php'ye göndermeliyiz
     let formData = new FormData(form); //yeni formData nesnesi oluşturma
-    xhr.send(formData); //form verilerini php'ye gönderme
+    
+    // Parola alanının güvenliği
+    let password = formData.get('password');
+    password = password.replace(/</g, "&lt;").replace(/>/g, "&gt;"); // Karakter özelliklerini kodlayın.
+    formData.set('password', password);
+
+    xhr.send(formData); // form verilerini php'ye gönderme
 }
