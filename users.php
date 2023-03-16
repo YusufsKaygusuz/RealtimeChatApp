@@ -3,7 +3,7 @@
 // Buradaki kod blokları kısaca, oturum açmış kullanıcının benzersiz kimliğine göre veritabanından
 // kullanıcı verilerini seçiyor ve daha sonra bu verileri sayfa başlığı olarak kullanılan
 // bir başlık etiketi içinde görüntülüyor.
-
+    include_once "php/config.php";
     if(!isset($_SESSION['unique_id'])){
         header("location: login.php");
     }
