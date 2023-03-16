@@ -17,6 +17,8 @@
                 }
                 else
                 {
+                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
                     // dosya yüklemesi kontrolü
                     if(isset($_FILES['image'])){
                         $img_name = $_FILES['image']['name']; //kullanıcı tarafından yüklenen img adını alma
@@ -41,7 +43,7 @@
 
                             // users veri tabanına verileri aktarma işlemi
                             $sql2 = mysqli_query($conn, "INSERT INTO users (unique_id, fname, lname, email, password, img, status)
-                            Values({$random_id}, '{$fname}', '{$lname}', '{$email}', '{$password}', '{$new_img_name}', '{$status}') ");
+                            Values({$random_id}, '{$fname}', '{$lname}', '{$email}', '{$hashed_password}', '{$new_img_name}', '{$status}') ");
                            }
 
                            if($sql2){ // datalar insert edilmişse
@@ -72,5 +74,5 @@
     else{
             echo "All input field are required!";
         }
-    
+
 ?>
