@@ -27,13 +27,14 @@
                 $unique_id = htmlspecialchars($row['unique_id']);// XSS saldırılarını önlemek için özel karakterleri HTML varlıklarına dönüştürün
 
                 // Hazırlanan Ekstreler
-                $stmt = $conn->prepare("UPDATE users SET status = ? WHERE unique_id = ?"); // Status ve unique_id girişleri için yer tutucularla bir SQL deyimi hazırlayın
-                $stmt->bind_param("ss", $status, $unique_id); // Status ve unique_id giriş değerlerini yer tutuculara bağlayın
-                $stmt->execute(); // SQL deyimini çalıştır
+                $sql2 = $conn->prepare("UPDATE users SET status = ? WHERE unique_id = ?");
+                $sql2->bind_param("ss", $status, $unique_id);
+                $sql2->execute();
 
-                if($stmt->affected_rows == 1){ // Yürütülen SQL deyiminden bir satır etkileniyorsa, durum alanı başarıyla güncellendi demektir
-                    $_SESSION['unique_id'] = $unique_id; //unique_id oturum değişkenini sterilize edilmiş unique_id değerine ayarlayın
-                    echo "success"; // Başarılı bir oturum açmayı belirtmek için "başarılı" ifadesini yankılayın
+                if($sql2){
+                    $_SESSION['unique_id'] = $row['unique_id'];
+                    echo "success";
+                    exit();
                 }
             }
             else{
@@ -41,7 +42,7 @@
             }
         }
         else{
-            echo "Email or Password is incorrect!"; // E-posta veritabanında yoksa bir hata mesajını echo et
+            echo "Email is invalid!"; // E-posta veritabanında yoksa bir hata mesajını echo et
         }
     }
     else{
